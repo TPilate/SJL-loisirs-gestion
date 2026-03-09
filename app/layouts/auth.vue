@@ -1,6 +1,6 @@
 <template>
   <UApp>
-    <slot />
     <UToaster />
+    <slot />
   </UApp>
 </template>
