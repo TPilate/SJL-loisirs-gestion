@@ -507,7 +507,7 @@ function teamDisplayName(tid: string) {
           <div class="pool-card-header">
             <h3 class="pool-card-title">{{ pool.name }}</h3>
             <span class="pool-team-count">{{ pool.teamIds.length }} équipe{{ pool.teamIds.length !== 1 ? 's' : ''
-            }}</span>
+              }}</span>
           </div>
 
           <!-- Pool teams list -->
@@ -627,10 +627,10 @@ function teamDisplayName(tid: string) {
                     <div style="flex:1;min-width:0">
                       <span class="player-lastname" style="font-size:13px">{{ p.name }}</span>
                       <span class="player-firstname" style="font-size:11px;display:block">{{ p.firstName || '—'
-                      }}</span>
+                        }}</span>
                     </div>
                     <span v-if="p.blocked" class="status-pill status-blocked"
-                      style="font-size:10px;padding:2px 6px">Bloqué</span>
+                      style="font-size:10px;padding:2px 6px">Bloque ?</span>
                     <span class="rank-pill rank-pill--sm" :class="rankClass(p.rank)">{{ p.rank }}</span>
                     <span class="pts-circle pts-circle--sm"
                       :class="p.points >= 9 ? 'pts-max' : p.points >= 7 ? 'pts-high' : p.points >= 4 ? 'pts-mid' : 'pts-low'">

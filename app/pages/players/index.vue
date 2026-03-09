@@ -339,7 +339,7 @@ function initials(player: IPlayer) {
                 <div class="toggle-track">
                   <div class="toggle-thumb" />
                 </div>
-                <span class="toggle-label">Joueur bloqué</span>
+                <span class="toggle-label">bloque ?</span>
               </label>
             </div>
           </div>
