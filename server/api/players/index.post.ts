@@ -11,7 +11,10 @@ export default defineEventHandler(async (event) => {
 
   const player = await Player.create({
     name: body.name,
-    rank: body.rank ?? 0,
+    firstName: body.firstName ?? '',
+    rank: body.rank ?? 'Bronze',
+    blocked: body.blocked ?? false,
+    points: body.points ?? 5,
   })
 
   return player

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const player = await Player.findByIdAndUpdate(
     id,
-    { name: body.name, rank: body.rank ?? 0 },
+    { name: body.name, firstName: body.firstName ?? '', rank: body.rank ?? 'Bronze', blocked: body.blocked ?? false, points: body.points ?? 5 },
     { new: true, runValidators: true }
   )
 

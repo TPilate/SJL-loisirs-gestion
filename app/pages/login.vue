@@ -2,7 +2,6 @@
 definePageMeta({ layout: 'auth' })
 
 const auth = useAuthStore()
-const toast = useToast()
 
 if (auth.isAdmin) {
   await navigateTo('/players')
@@ -21,8 +20,7 @@ async function handleLogin() {
   isLoading.value = true
   try {
     await auth.login(form.username, form.password)
-    toast.add({ title: 'Connecté', description: `Bienvenue, ${auth.username} !`, color: 'success' })
-    await navigateTo('/players')
+    await navigateTo('/players?welcome=1')
   } catch {
     error.value = 'Identifiants invalides. Veuillez réessayer.'
   } finally {

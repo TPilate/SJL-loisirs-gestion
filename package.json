@@ -20,6 +20,8 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^25.4.0",
+    "vue-tsc": "^3.2.5"
   }
 }
