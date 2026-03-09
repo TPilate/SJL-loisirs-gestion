@@ -1,13 +1,10 @@
-import mongoose from 'mongoose'
+import { connectToDatabase } from '../utils/db'
 
 export default defineNitroPlugin(async () => {
-  const config = useRuntimeConfig()
-  const uri = config.mongodbUri
-
   try {
-    await mongoose.connect(uri)
-    console.log('[MongoDB] Connected successfully')
+    await connectToDatabase()
   } catch (error) {
-    console.error('[MongoDB] Connection failed:', error)
+    // Log but don't crash the server — the middleware will retry on each request
+    console.error('[MongoDB] Initial connection failed:', error)
   }
 })
