@@ -1047,6 +1047,11 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
 
+/* ── Mobile badges: hidden on desktop ───────────────────────────────────── */
+.player-badges-mobile {
+  display: none;
+}
+
 /* ── Toaster z-index override ────────────────────────────────────────────── */
 [data-sonner-toaster],
 .nuxt-toaster {
@@ -2610,4 +2615,578 @@ body {
 
 .picker-player-row--blocked:hover {
   opacity: 0.75;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOBILE NAVIGATION (hidden by default)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.mobile-topbar {
+  display: none;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — TABLET & MOBILE (≤ 768px)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 768px) {
+
+  /* ── App layout ─────────────────────────────────────────────────────────── */
+  .page-root {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    overflow: visible;
+    height: auto;
+    flex: unset;
+  }
+
+  /* ── Mobile top bar ─────────────────────────────────────────────────────── */
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #0f0f0f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    flex-shrink: 0;
+  }
+
+  /* ── Mobile bottom navigation ───────────────────────────────────────────── */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 15, 15, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 300;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 10px 8px;
+    text-decoration: none;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    transition: color 0.15s;
+    min-height: 58px;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-nav-item--active,
+  .router-link-active.mobile-nav-item {
+    color: #ef4444 !important;
+  }
+
+  /* ── Topbar ─────────────────────────────────────────────────────────────── */
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px 16px 12px;
+  }
+
+  .topbar-title {
+    font-size: 24px;
+  }
+
+  .topbar-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .topbar-actions .search-wrapper {
+    flex: 1;
+  }
+
+  .topbar-actions .search-input {
+    width: 100%;
+  }
+
+  /* ── Global spacing adjustments ─────────────────────────────────────────── */
+  .sheet-wrapper {
+    padding: 12px 16px 88px;
+  }
+
+  .trn-grid {
+    padding: 0 16px 88px;
+  }
+
+  .trn-tab-content {
+    padding: 0 16px 88px;
+  }
+
+  .trn-tabs {
+    padding: 0 16px;
+  }
+
+  /* ── Players table → card list ──────────────────────────────────────────── */
+  .players-table-wrap {
+    margin: 0 0 88px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .players-table {
+    display: block;
+    width: 100%;
+  }
+
+  .players-table thead {
+    display: none;
+  }
+
+  .players-table tbody {
+    display: block;
+  }
+
+  /*
+   *  ┌──────────────────────────────────────────────────┐
+   *  │ [Av]  Tom                               [✏️][🗑️]│
+   *  │       Pilate                                     │
+   *  │       [Or+]  ⑦  🚫 Bloqué                      │
+   *  └──────────────────────────────────────────────────┘
+   *  Row uses flex so avatar + content + actions align on
+   *  a single vertical axis — no absolute positioning hacks.
+   */
+  .players-row {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-bottom: 1px solid #1a1a1a;
+    transition: background 0.12s;
+    position: relative;
+  }
+
+  .players-row:last-child {
+    border-bottom: none;
+  }
+
+  .players-row:active {
+    background: #161616;
+  }
+
+  /* Blocked player: subtle left accent */
+  .players-row:has(.status-blocked) {
+    border-left: 2px solid rgba(248, 113, 113, 0.35);
+  }
+
+  /* every td: block by default */
+  .players-table td {
+    display: block;
+    padding: 0;
+    border: none;
+    vertical-align: unset;
+  }
+
+  /* ── Hidden cells ──────────────────────────────── */
+  .cell-idx,
+  .cell-date {
+    display: none !important;
+  }
+
+  /* ── Player cell: fills remaining space ─────────── */
+  .cell-player {
+    display: block !important;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .cell-player .player-cell {
+    align-items: center;
+  }
+
+  .cell-player .player-names {
+    gap: 1px;
+  }
+
+  .cell-player .player-lastname {
+    font-size: 14px;
+  }
+
+  .cell-player .player-firstname {
+    font-size: 12px;
+  }
+
+  /* ── Mobile badge row (rank + pts + blocked tag) ─── */
+  /* Hidden on desktop via the rule below the media query */
+  .player-badges-mobile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+  }
+
+  .player-badges-mobile .rank-pill {
+    font-size: 11px;
+    padding: 2px 7px;
+  }
+
+  .player-badges-mobile .pts-circle {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+    border-width: 1px;
+  }
+
+  .player-badges-mobile .status-pill {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  /* ── Separate badge tds: hidden on mobile ────────── */
+  .cell-rank,
+  .cell-pts,
+  .cell-status {
+    display: none !important;
+  }
+
+  /* ── Actions: horizontal, right-aligned ─────────── */
+  .cell-actions {
+    display: flex !important;
+    flex-shrink: 0;
+    padding: 0;
+    align-self: center;
+  }
+
+  .cell-actions .row-actions {
+    flex-direction: row;
+    gap: 6px;
+    opacity: 1 !important;
+  }
+
+  /* Touch-friendly action buttons */
+  .btn-action {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  /* ── Skeleton loader rows ──────────────────────── */
+  .table-row-skeleton {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .table-row-skeleton td {
+    display: block !important;
+    padding: 0;
+  }
+
+  /* hide index + date skeleton cells */
+  .table-row-skeleton td:first-child,
+  .table-row-skeleton td:nth-child(6) {
+    display: none !important;
+  }
+
+  .table-row-skeleton td:nth-child(2) {
+    flex: 1;
+  }
+
+  /* ── Modals → bottom sheet ──────────────────────────────────────────────── */
+  .custom-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .custom-modal {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 92dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: sheet-in 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .custom-modal-header {
+    padding: 16px 18px 0;
+    position: sticky;
+    top: 0;
+    background: #141414;
+    z-index: 1;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .custom-modal-body {
+    padding: 16px 18px 0;
+  }
+
+  .custom-modal-footer {
+    flex-direction: column-reverse;
+    gap: 8px;
+    padding: 14px 18px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    position: sticky;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .custom-modal-footer .btn-add,
+  .custom-modal-footer .btn-danger,
+  .custom-modal-footer .btn-cancel {
+    width: 100%;
+    height: 46px;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  /* Drag handle indicator */
+  .custom-modal::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 10px auto 0;
+    flex-shrink: 0;
+  }
+
+  /* ── Form grids → single column ─────────────────────────────────────────── */
+  .modal-row-2 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .modal-row-3 {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* ── Wide modal (team picker) ───────────────────────────────────────────── */
+  .custom-modal--wide {
+    width: 100%;
+  }
+
+  .team-picker {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    min-height: auto;
+  }
+
+  .team-selected-list {
+    max-height: 140px;
+  }
+
+  .player-picker-list {
+    max-height: 220px;
+  }
+
+  /* ── Set score rows ─────────────────────────────────────────────────────── */
+  .set-score-row {
+    grid-template-columns: 40px 1fr 54px auto 54px;
+    gap: 6px;
+  }
+
+  .set-team-name--right {
+    display: none;
+  }
+
+  .set-team-name {
+    font-size: 11px;
+  }
+
+  /* ── Tournament detail header ───────────────────────────────────────────── */
+  .trn-detail-header {
+    padding: 14px 16px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .trn-detail-header-actions {
+    padding-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn-launch {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 18px;
+    min-height: 44px;
+  }
+
+  .trn-live-badge {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* ── Section toolbars ───────────────────────────────────────────────────── */
+  .trn-section-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .trn-section-toolbar .btn-add {
+    width: 100%;
+    height: 44px;
+    justify-content: center;
+    border-radius: 10px;
+  }
+
+  .trn-section-toolbar>div {
+    display: flex;
+    gap: 8px;
+  }
+
+  .trn-section-toolbar>div .btn-secondary {
+    flex: 1;
+    height: 40px;
+    justify-content: center;
+  }
+
+  /* ── Team & pool grids → single col ────────────────────────────────────── */
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Match rows ─────────────────────────────────────────────────────────── */
+  .pool-match-row {
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .match-team {
+    font-size: 11px;
+  }
+
+  .btn-score {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* ── Tournament cards ───────────────────────────────────────────────────── */
+  .trn-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Landing page ───────────────────────────────────────────────────────── */
+  .landing-header-inner {
+    padding: 0 16px;
+  }
+
+  .landing-hero {
+    padding: 40px 20px 32px;
+  }
+
+  .landing-title {
+    gap: 8px;
+  }
+
+  .landing-stats {
+    gap: 0;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .landing-stat {
+    width: 50%;
+    align-items: flex-start;
+    padding: 8px 16px;
+  }
+
+  .landing-stat-sep {
+    display: none;
+  }
+
+  .landing-actions {
+    margin-bottom: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* ── Login page ─────────────────────────────────────────────────────────── */
+  .login-box {
+    padding: 28px 20px 22px;
+  }
+
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — SMALL PHONES (≤ 390px)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 390px) {
+  .topbar-title {
+    font-size: 22px;
+  }
+
+  .btn-add {
+    font-size: 12px;
+    padding: 0 12px;
+  }
+
+  .modal-row-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .set-score-row {
+    grid-template-columns: 36px 1fr 48px auto 48px;
+    gap: 4px;
+  }
+
+  .trn-card-meta {
+    gap: 6px;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SHEET ANIMATION (defined once, outside media)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes sheet-in {
+  from {
+    transform: translateY(40px);
+    opacity: 0.6;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

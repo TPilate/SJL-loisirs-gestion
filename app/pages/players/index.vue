@@ -249,6 +249,14 @@ function initials(player: IPlayer) {
                 <div class="player-names">
                   <span class="player-lastname">{{ player.name }}</span>
                   <span class="player-firstname">{{ player.firstName || '—' }}</span>
+                  <!-- mobile badges — hidden on desktop via CSS -->
+                  <div class="player-badges-mobile">
+                    <span class="rank-pill" :class="rankClass(player.rank)">{{ player.rank }}</span>
+                    <span class="pts-circle" :class="pointsClass(player.points ?? 5)">{{ player.points ?? 5 }}</span>
+                    <span v-if="player.blocked" class="status-pill status-blocked">
+                      <UIcon name="i-lucide-ban" style="width:10px;height:10px" /> Bloqué
+                    </span>
+                  </div>
                 </div>
               </div>
             </td>
